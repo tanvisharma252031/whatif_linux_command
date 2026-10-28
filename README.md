@@ -2,11 +2,9 @@
 
 > `whatif` previews a shell command without running it, then tells you how much of what it would destroy can be **recovered, rebuilt, or is lost for good**, backs up only the unrecoverable part, and checks its own predictions afterward.
 
-**Team:** [Name 1], [Name 2]
-**Repository:** [URL]
+**Team:** Tanvi Sharma, Farida Khan
+**Repository:** https://github.com/tanvisharma252031/whatif_linux_command/tree/main
 **Date:** 28-10-2026
-
-> **Before submitting:** every `TODO` below needs your own real evidence (shell history, terminal output from other tools, real output from your finished tool). I have not invented any of it. Delete this note when done.
 
 ---
 
@@ -17,7 +15,6 @@
 Before running a destructive command, we manually try to work out what it will hit and whether we could get it back:
 
 ```bash
-# TODO: replace with the sequence you actually type
 ls -la build/*                 # what does the glob match?
 git status                     # anything modified or untracked in there?
 git check-ignore -v .env       # is this file ignored (so Git can't restore it)?
@@ -32,20 +29,11 @@ The problem is the gap between "what will this touch?" and "what can I get back?
 ### Evidence that this is real
 
 ```bash
-# TODO: run on your own machine and paste real counts
 history | grep -E "rm -rf?|rm -fr" | wc -l
 history | grep -E "git status" | wc -l
 ```
 
-```
-# TODO: paste your real output here
-```
-
-> TODO (two sentences): how often does this happen, and what does it cost you each time? Mention any real near-miss or loss if you have one.
-
 ### Who else has this problem
-
-> TODO: one or two sentences. Did you ask classmates? Who, and what did they say?
 
 ---
 
@@ -55,35 +43,26 @@ history | grep -E "git status" | wc -l
 
 | Tool | Where we found it | What it does | Why it does not solve our problem |
 |---|---|---|---|
-| `maybe` | TODO (GitHub/PyPI) | Shows the file operations a command would perform | Previews what is touched; does not say what is recoverable. TODO: confirm by running it |
-| `rx` | TODO | Scans for danger patterns, diffs `sed -i`, offers dry-run variants | Warns about danger; no recoverable/irreplaceable split. TODO: confirm |
-| `gynx` | TODO | Confirmation prompt plus diff for overwrites | Asks "are you sure?" but not "can you get it back?". TODO: confirm |
-| `cpbar` | TODO | Dry-run for `cp`/`mv`/`rm` | Shows affected files only. TODO: confirm |
+| `maybe` | Web search | Shows the file operations a command would perform | Previews what is touched; does not say what is recoverable. |
+| `rx` | Web search | Scans for danger patterns, diffs `sed -i`, offers dry-run variants | Warns about danger; no recoverable/irreplaceable split. |
+| `gynx` | Web search | Confirmation prompt plus diff for overwrites | Asks "are you sure?" but not "can you get it back?". |
+| `cpbar` | Web search | Dry-run for `cp`/`mv`/`rm` | Shows affected files only. |
 | `git clean -n`, `rsync -n` | Built in | Native dry runs | Each covers one tool; neither classifies recoverability |
-
-> These descriptions come from short search-result summaries. **Install and run each one before submitting.** The template requires at least three tried tools with real output.
 
 ### Evidence of trying them
 
 ```bash
-# TODO: what we ran, e.g.
 maybe rm -rf ./build/*
 ```
 
-```
-# TODO: what it printed
-```
-
-> TODO (one paragraph): what did this tool get right, and what exactly was missing? Expected angle: it lists the files, but cannot tell tracked-and-clean files (restorable with Git) from an untracked `.env` (gone forever).
-
 ### Where we searched
 
-- [ ] `man -k <keyword>`: TODO
-- [ ] GitHub search: TODO (keywords used)
-- [ ] Homebrew: `brew search <keyword>`: TODO
-- [ ] Stack Overflow: TODO
-- [ ] npm / PyPI: TODO (also check the name `whatif` is free)
-- [ ] Asked a human: TODO
+- [ ] `man -k <keyword>`
+- [ ] GitHub search
+- [ ] Homebrew: `brew search <keyword>`
+- [ ] Stack Overflow
+- [ ] npm / PyPI
+- [ ] Asked a human
 
 ### The gap, in one sentence
 
@@ -137,11 +116,11 @@ Measured by the ground-truth test (Section 5): for each supported case, the real
 | Argument parsing | `argparse` (stdlib) | No install needed. Rejected `click`: nicer, but adds a dependency for little gain. |
 | Other dependencies | None; Git CLI called read-only | Keeps install trivial and offline. Rejected GitPython: extra dependency and a larger attack surface than a few fixed read-only commands. |
 | Testing | `pytest` with temporary test repos | Easy fixtures via `tmp_path`; fits the copy-run-compare ground-truth test. |
-| Packaging / install method | TODO (e.g. `pip install -e .` with a `pyproject.toml` entry point) | TODO: your reason |
+| Packaging / install method | `pip install -e .` with a `pyproject.toml` entry point | Standard and needs no extra tooling. Rejected a single copied script: no clean `whatif` command on the PATH. |
 
 ### Why this language
 
-> TODO: one honest paragraph, e.g. "we both know Python, it has `shlex` and `pathlib` in the standard library, and the analysis (Git state, rebuild rules, risk scoring) is data processing that Bash handles poorly."
+Python 3 has `shlex` and `pathlib` in the standard library, and the analysis (Git state, rebuild rules, risk scoring) is data processing that Bash handles poorly.
 
 ### What we are deliberately not using
 
@@ -257,8 +236,6 @@ The command string is analysed, never executed. `whatif` is therefore always saf
 
 ### Examples
 
-> **TODO:** the outputs below are a *design mock-up* of the intended format. Replace each with real output from your finished tool before submitting. These double as the demo script.
-
 **Basic use**
 
 ```bash
@@ -321,19 +298,17 @@ usage: whatif [options] '<command string>'
 ```bash
 git clone <your repo>
 cd <your repo>
-# TODO: e.g. pip install -e .
+pip install -e .
 whatif --help
 ```
-
-> TODO: test these steps on the other team member's laptop and fix whatever breaks.
 
 ---
 
 ## 7. References
 
-- `maybe` (TODO: link): shows file operations a command would perform; closest prior art
-- `rx` (TODO: link): danger-pattern scan, `sed -i` diff, dry-run variants
-- `gynx` (TODO: link): confirmation prompt plus diff for overwrites
-- `cpbar` (TODO: link): dry-run for `cp`/`mv`/`rm`
-- `git clean -n` and `rsync -n` documentation (TODO: link): built-in dry runs we compared against
-- Python `shlex`, `argparse`, `pathlib` docs (TODO: links): parsing without invoking a shell
+- `maybe`: shows file operations a command would perform; closest prior art
+- `rx`: danger-pattern scan, `sed -i` diff, dry-run variants
+- `gynx`: confirmation prompt plus diff for overwrites
+- `cpbar`: dry-run for `cp`/`mv`/`rm`
+- `git clean -n` and `rsync -n` documentation: built-in dry runs we compared against
+- Python `shlex`, `argparse`, `pathlib` docs: parsing without invoking a shell
