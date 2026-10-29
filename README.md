@@ -3,7 +3,7 @@
 > `whatif` previews a shell command without running it, then tells you how much of what it would destroy can be **recovered, rebuilt, or is lost for good**, backs up only the unrecoverable part, and checks its own predictions afterward.
 
 **Team:** Tanvi Sharma, Farida Khan
-**Repository:** https://github.com/tanvisharma252031/whatif_linux_command/tree/main
+
 **Date:** 28-10-2026
 
 ---
